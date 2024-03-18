@@ -12,7 +12,7 @@ RUN mvn clean package
 FROM openjdk:17-slim
 
 # Copy the built JAR from the build stage to the run stage
-COPY --from=builder /usr/src/myapp/target/myapp.jar /usr/app/myapp.jar
+COPY --from=builder /usr/src/myapp/target/hateno-java-0.0.1-SNAPSHOT.jar /usr/app/myapp.jar
 
 # Set the working directory for the container
 WORKDIR /usr/app
