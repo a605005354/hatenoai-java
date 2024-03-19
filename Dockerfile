@@ -1,5 +1,5 @@
 # Build stage
-FROM maven:3.8.4-openjdk-17 as builder
+FROM maven:3.6.3-openjdk-17 as builder
 
 # Copy the project files to the container
 COPY ./ /usr/src/myapp/
@@ -16,6 +16,8 @@ COPY --from=builder /usr/src/myapp/target/hateno-java-0.0.1-SNAPSHOT.jar /usr/ap
 
 # Set the working directory for the container
 WORKDIR /usr/app
+
+EXPOSE 8081
 
 # Command to run the application
 CMD ["java", "-jar", "myapp.jar"]
