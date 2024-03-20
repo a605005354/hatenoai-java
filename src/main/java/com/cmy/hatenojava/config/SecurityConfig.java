@@ -62,7 +62,11 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000")); // Specify domains or use "*" for all
+        configuration.setAllowedOrigins(
+                Arrays.asList("http://localhost:3000",
+                        "https://hatenoai.vercel.app", // Production Vercel app
+                        "https://hatenoai-react-olx7laeav-a605005354s-projects.vercel.app" // Vercel Preview Deployments
+                )); // Specify domains or use "*" for all
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token"));
         configuration.setAllowCredentials(true);
