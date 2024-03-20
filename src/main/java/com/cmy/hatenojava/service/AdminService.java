@@ -6,10 +6,8 @@ import com.cmy.hatenojava.model.enums.AdminErrorCode;
 import com.cmy.hatenojava.model.request.AdminLoginReq;
 import com.cmy.hatenojava.model.request.AdminReq;
 import com.cmy.hatenojava.repository.AdminRepository;
-import org.slf4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -52,10 +50,11 @@ public class AdminService {
         if (adminRepository.existsByEmail(admin.getEmail())){
             throw new ResponseException(AdminErrorCode.EMAIL_ALREADY_IN_USE.getMessage());
         }
+        admin.setPassword(passwordEncoder.encode(admin.getPassword()));
+        admin.setCreateAt(LocalDateTime.now());
+        admin.setLastLogin(LocalDateTime.now());
         //Encode password for signup
         if (adminRepository.save(admin) != null){
-            admin.setPassword(passwordEncoder.encode(admin.getPassword()));
-            admin.setCreateAt(LocalDateTime.now());
             return true;
         }
         return false;
